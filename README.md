@@ -1,1 +1,2 @@
-# docker-oscript
+# dockerfiles for:
+- oscript (gitsync)
