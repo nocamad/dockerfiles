@@ -80,18 +80,17 @@ RUN apt-get autoclean -y && rm -rf /var/lib/apt/lists/*
 
 RUN rm /opt/dist/oscript/*.deb
 
-RUN mkdir /opt/data
-RUN mkdir /opt/reps
+RUN mkdir /opt/data && mkdir /opt/data/repsgit && mkdir /opt/data/temps && mkdir /opt/data/repos
 RUN mkdir /opt/1C/v8.3/x86_64/conf && chmod -R 777 /opt/1C/v8.3/x86_64/conf
 RUN mkdir -p /var/log/1c/logs && chmod -R 777 /var/log/1c
 
 RUN chmod -R 777 /opt/1C/v8.3/x86_64
 
-#VOLUME /opt/data
-#VOLUME /opt/1C/v8.3/x86_64/conf/
+#VOLUME /opt/1C/v8.3/x86_64/conf
 #VOLUME /var/log/1c/logs
-
-#CMD /bin/bash
+#VOLUME /opt/data/repsgit
+#VOLUME /opt/data/temps
+#VOLUME /opt/data/repos
 
 # Install Java repository.
 RUN apt-get update && apt-get -y upgrade && \
@@ -112,7 +111,7 @@ RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so
 RUN adduser --quiet user-slave
 
 # Set password for the user-slave user 
-RUN echo "user-slave:pass" | chpasswd
+RUN echo "user-slave:user-pass" | chpasswd
 
 RUN usermod -g root user-slave
 

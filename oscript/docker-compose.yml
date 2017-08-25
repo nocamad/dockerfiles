@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  gitsync:
+    restart: always
+    image: name/gitsync
+    ports:
+      - "port:22"
+    volumes:
+      - ./vol/conf1c:/opt/1C/v8.3/x86_64/conf
+      - ./vol/logs1c:/var/log/1c/logs
+      - ./vol/repsgit:/opt/data/repsgit
+      - ./vol/temps:/opt/data/temps
+      - path_to_repos:/opt/data/repos
+    hostname: gitsync
+    container_name: gitsync
+
+networks:
+  default:
+    driver: bridge
